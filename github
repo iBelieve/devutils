@@ -5,10 +5,14 @@
 CMD=$1
 shift
 
-if [ $CMD == "new" ]; then
-    new-repo $@
-fi
-
-if [ $CMD == "clone" ]; then
-    clone-repo $@
+if [ $CMD == "init" ]; then
+    git init
+    git add *
+    git commit -m "Initial project"
+    git remote add origin git@github.com:$1.git
+    git push -u origin master
+elif [ $CMD == "clone" ]; then
+    git clone git@github.com:$1.git
+elif [ $CMD == "ignore" ]; then
+    echo "$@" >> .gitignore
 fi
