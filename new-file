@@ -1,0 +1,7 @@
+#! /bin/bash
+
+# new-file tempate name supertype
+
+cp $UTILS_PATH/templates/$1 $2
+replace '@SUPERTYPE@' $3 $2
+github license $2
