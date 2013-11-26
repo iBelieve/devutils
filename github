@@ -1,0 +1,14 @@
+#! /bin/bash
+
+# github <command> <args>
+
+CMD=$1
+shift
+
+if [ $CMD == "new" ]; then
+    new-repo $@
+fi
+
+if [ $CMD == "clone" ]; then
+    clone-repo $@
+fi
