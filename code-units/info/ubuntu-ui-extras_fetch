@@ -1,0 +1,10 @@
+#! /bin/bash
+
+if [ $1 = "install" ]; then
+	git clone https://github.com/iBeliever/ubuntu-ui-extras.git $2
+fi
+
+if [ $1 = "update" ]; then
+	cd $2
+	git pull
+fi
