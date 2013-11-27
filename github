@@ -17,21 +17,26 @@ if [ $CMD == "help" ]; then
     echo '  ignore     path_spec'
     echo '  license    files'
 elif [ $CMD == "init" ]; then
-    cp $UTILS_PATH/resources/COPYING .
-    cp $UTILS_PATH/resources/header.in .
-    cp $UTILS_PATH/resources/README.md .
-    replace '@AUTHOR@' "$AUTHOR" header.in
-    replace '@NAME@' "$2" header.in
-    replace '@YEAR@' "$YEAR" header.in
-    replace '@DESCRIPTION@' "$3" header.in
-
-    LINE=$(echo "$2" | sed 's/./=/'g)
-    replace '@AUTHOR@' "$AUTHOR" README.md
-    replace '@NAME@' "$2" README.md
-    replace '@LINE@' $LINE README.md
-    replace '@YEAR@' "$YEAR" README.md
-    replace '@DESCRIPTION@' "$3" README.md
+    cp -n $UTILS_PATH/resources/COPYING .
     
+    if [ ! -f header.in ]; then
+        cp $UTILS_PATH/resources/header.in .
+        replace '@AUTHOR@' "$AUTHOR" header.in
+        replace '@NAME@' "$2" header.in
+        replace '@YEAR@' "$YEAR" header.in
+        replace '@DESCRIPTION@' "$3" header.in
+    fi
+
+    if [ ! -f README.md ]; then
+        cp $UTILS_PATH/resources/README.md .
+        LINE=$(echo "$2" | sed 's/./=/'g)
+        replace '@AUTHOR@' "$AUTHOR" README.md
+        replace '@NAME@' "$2" README.md
+        replace '@LINE@' $LINE README.md
+        replace '@YEAR@' "$YEAR" README.md
+        replace '@DESCRIPTION@' "$3" README.md
+    fi    
+
     if [ ! -d .git ]; then
         git init
         git add *
