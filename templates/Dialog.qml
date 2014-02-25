@@ -3,6 +3,8 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 
-@SUPERTYPE@ {
-    id: root
+Dialog {
+    id: dialog
+    
+    title: i18n.tr("Your Title Here")
 }

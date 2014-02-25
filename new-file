@@ -4,4 +4,4 @@
 
 cp $UTILS_PATH/templates/$1 $2
 replace '@SUPERTYPE@' $3 $2
-github license $2
+devutils license $2

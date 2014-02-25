@@ -41,8 +41,10 @@ elif [ $CMD == "init" ]; then
         git init
         git add *
         git commit -m "Initial project"
-        git remote add origin git@github.com:$1.git
-        git push -u origin master
+        if [ $1 != "local" ]; then
+            git remote add origin git@github.com:$1.git
+            git push -u origin master
+        fi
     fi
 elif [ $CMD == "clone" ]; then
     git clone git@github.com:$1.git
@@ -52,4 +54,7 @@ elif [ $CMD == "license" ]; then
     for FILE in $@; do
         cat $HEADER_FILE $FILE > tmpfile && mv tmpfile $FILE
     done
+elif [ $CMD == "icon" ]; then
+    inkscape --export-png=icons/$1.png --export-dpi=32 --export-background-opacity=0 --without-gui /usr/share/icons/ubuntu-mobile/actions/scalable/$1.svg
+
 fi
