@@ -53,7 +53,7 @@ def link(name, src):
     if os.path.exists(unit_file(name)):
         uninstall(name)
     
-    os.system('ln -s ' + src + ' ' + unit_file(name))
+    os.system('ln -s "' + src + '" "' + unit_file(name) + '"')
 
 def install(name, force=False):
     # If it already exists
@@ -139,8 +139,8 @@ def update(name):
         shutil.copytree(src_file(name), unit_file(name), True)
     
 
-def use(name):
-    if os.path.exists(dest_file(name)):
+def use(name, fail=True):
+    if os.path.exists(dest_file(name)) and fail:
         print 'Unit already used: ' + name
         exit()
     
@@ -163,6 +163,14 @@ def unuse(name):
         exit()
         
     os.remove(dest_file(name))
+	
+def setup():
+    if not(os.path.exists('Codefile')):
+        print 'No Codefile exists!'
+        exit()
+    file = open('Codefile')
+    for line in file.readlines():
+        use(line.strip(), False)
 
 def print_available():
     print('Available units:')
@@ -198,6 +206,8 @@ if __name__ == '__main__':
             use(args[0])
         elif cmd == 'unuse':
             unuse(args[0])
+        elif cmd == 'setup':
+            setup()
         else:
             print_available()
     else:
