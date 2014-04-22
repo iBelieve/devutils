@@ -48,6 +48,11 @@ elif [ $CMD == "init" ]; then
     fi
 elif [ $CMD == "clone" ]; then
     git clone git@github.com:$1.git
+	DIR=`sed -E -e 's/.*\/(.*)/\1/'`
+	cd $DIR
+	if [ -f Codefile ]; then
+		code setup
+	fi
 elif [ $CMD == "ignore" ]; then
     echo "$@" >> .gitignore
 elif [ $CMD == "license" ]; then
